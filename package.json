@@ -3,7 +3,7 @@
   "version": "0.1.0-beta.1",
   "author": "Feng L.H.",
   "description": "A lightweight image rotation verification plugin.",
-  "main": "./dist/RVerify-0.1.0-beta.1.min.js",
+  "main": "./dist/RVerify.min.js",
   "scripts": {
     "dev": "gulp",
     "build": "gulp build"

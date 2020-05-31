@@ -35,13 +35,13 @@ gulp.task('js:build', async () => {
         presets: ['es2015']
       })
     )
-    .pipe(rename('RVerify-' + version + '.js'))
+    .pipe(rename('RVerify.js'))
     .pipe(gulp.dest('./dist/'))
     .pipe(uglify())
     .on('error', function(err) {
       gutil.log(gutil.colors.red('[Error]'), err.toString());
     })
-    .pipe(rename('RVerify-' + version + '.min.js'))
+    .pipe(rename('RVerify.min.js'))
     .pipe(gulp.dest('./dist/'));
 });
 
@@ -50,13 +50,13 @@ gulp.task('css:build', async () => {
   await gulp
     .src(cssPath)
     .pipe(less()) 
-    .pipe(rename('RVerify-' + version + '.css'))
+    .pipe(rename('RVerify.css'))
     .pipe(gulp.dest('./dist/'))
     .pipe(minifyCss())
     .on('error', function(err) {
       gutil.log(gutil.colors.red('[Error]'), err.toString());
     })
-    .pipe(rename('RVerify-' + version + '.min.css'))
+    .pipe(rename('RVerify.min.css'))
     .pipe(gulp.dest('./dist/'));
 });
 
