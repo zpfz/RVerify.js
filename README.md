@@ -3,7 +3,7 @@
 
 ✅❎ A lightweight image rotation verification plugin.
 
-![Build](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square) ![Downloads](https://img.shields.io/npm/dt/rverify?style=flat-square&color=red)![Version](https://img.shields.io/github/package-json/v/zpfz/RVerify.js?style=flat-square&color=orange) ![License](https://img.shields.io/github/license/zpfz/RVerify.js?style=flat-square&color=blue)
+![Build](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square) ![Downloads](https://img.shields.io/npm/dt/rverify?style=flat-square&color=red) ![Version](https://img.shields.io/github/package-json/v/zpfz/RVerify.js?style=flat-square&color=orange) ![License](https://img.shields.io/github/license/zpfz/RVerify.js?style=flat-square&color=blue)
 
 </div>
 
