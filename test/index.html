@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RVerify</title>
+  <title>RVerify.js</title>
   <script src="./index.js"></script>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <div>
-    <h1>RVerify</h1>
+    <h1>RVerify.js Demo</h1>
     <div>
-      <!-- <button onclick="rverify">提交</button> -->
     </div>
   </div>
   <!-- <div class="rv-root">
@@ -47,27 +48,31 @@
   </div> -->
 </body>
 <script>
-  console.log(RVerify.version);
+  console.log('Version: '+ RVerify.version);
+
   RVerify.configure({
     tolerance: 10,
-    duration: 1000,
+    duration: 500,
     mask: .5,
-    extra: '意见反馈',
+    extra: 'View on Github',
     album: [
       'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg',
       'https://c-ssl.duitang.com/uploads/item/201707/10/20170710210234_y3Kf5.thumb.1000_0.jpeg',
       'http://pic2.zhimg.com/50/v2-be54dda1c19aaeab4f90bcb699057d03_hd.jpg',
       'http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20181226/97d5877e0ac1445980e755225514efc5.jpeg'
     ]
-    // maskClosable: true
-  })
-  RVerify.action(function(res){
-    console.log('执行完毕');
-    console.log(res);
-
   });
-  // RVerify.configure({
 
-  // });
+  RVerify.action(function (code) {
+    switch (code) {
+      case 1:
+        alert("Verify successful.");
+        break;
+      case 2:
+        alert("No action");
+        break;
+    }
+  });
 </script>
+
 </html>

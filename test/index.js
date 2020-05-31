@@ -84,7 +84,8 @@
     createNode.innerHTML = modal;
     $('body').appendChild(createNode);
 
-    var bar = $('.rv-bar'),
+    var root = $('.rv-root'),
+      bar = $('.rv-bar'),
       slider = $('.rv-slider'),
       close = $('.rv-close'),
       img = $('.rv-img'),
@@ -115,8 +116,7 @@
     // Close
     close.onclick = function () {
       result = 2;
-      wrap.remove();
-      mask.remove();
+      root.parentNode.remove();
       callback(result);
     };
 
@@ -124,8 +124,7 @@
     mask.onclick = function () {
       if (Settings.maskClosable == true) {
         result = 2;
-        wrap.remove();
-        mask.remove();
+        root.parentNode.remove();
         callback(result);
       }
     };
@@ -154,7 +153,7 @@
           img.style.transform = 'rotate(' + targetAngle + 'deg)';
         }
       };
-      document.onmouseup = function (e) {
+      document.onmouseup = function () {
         if (ReturnResult(getImgAngle())) {
           maskImg.style.cssText = 'visibility: visible;opacity: 1';
           maskSuccess.style.cssText = 'visibility: visible;opacity: 1';
@@ -162,14 +161,13 @@
           slider.classList.add('rv-slider-success');
           slider.onmousedown = null;
           document.onmousemove = null;
+          document.onmouseup = null;
           // Call back
           setTimeout(function () {
             result = 1;
-            wrap.remove();
-            mask.remove();
+            root.parentNode.remove();
             callback(result);
           }, Settings.duration);
-          return;
         } else {
           maskImg.style.cssText = 'visibility: visible;opacity: 1';
           maskError.style.cssText = 'visibility: visible;opacity: 1';
