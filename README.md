@@ -13,7 +13,7 @@ Add `RVerify.js` and `RVerify.css` to your project.
 <script src="RVerify.js"></script>
 <link rel="stylesheet" href="RVerify.css"/>
 ```
-You can get the corresponding CDN link from [unpkg](https://unpkg.com/rverify/) or [jsdelivr](https://cdn.jsdelivr.net/gh/zpfz/RVerify.js@master/dist/).
+You can get the corresponding CDN link from [unpkg](https://unpkg.com/rverify/) or [jsdelivr](https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/).
 
 RVerify.js is available via [npm](https://www.npmjs.com/package/rverify).
 ```sh
