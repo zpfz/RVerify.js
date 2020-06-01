@@ -30,11 +30,11 @@ gulp.task('clean', async () => {
 gulp.task('js:build', async () => {
   await gulp
     .src(jsPath)
-    .pipe(
-      babel({
-        presets: ['es2015']
-      })
-    )
+    // .pipe(
+    //   babel({
+    //     presets: ['es2015']
+    //   })
+    // )
     .pipe(rename('RVerify.js'))
     .pipe(gulp.dest('./dist/'))
     .pipe(uglify())
