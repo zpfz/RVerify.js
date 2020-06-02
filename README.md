@@ -190,13 +190,26 @@ Set the modal randomly displayed image album.
 ```js
 RVerify.configure({
   album: [
-    'https://www.humanewatch.org/app/uploads/2018/10/Elephant_zoo.jpg',
-    'https://askabiologist.asu.edu/sites/default/files/styles/panopoly_image_full/public/side-content/tortoiseshell_she-cat.jpg?itok=tbXBe5H7',
-    'http://www.caraphil.org/mainsite/wp-content/uploads/2016/01/Monching-CARA-rescued-cat-pet-for-adoption-animal-welfare-in-the-Philippines.jpg'
+    'https://rverify.now.sh/assets/1.jpg',
+    'https://rverify.now.sh/assets/2.jpg',
+    'https://rverify.now.sh/assets/3.jpg',
+    'https://rverify.now.sh/assets/4.jpg',
+    'https://rverify.now.sh/assets/5.jpg',
+    'https://rverify.now.sh/assets/6.jpg',
+    'https://rverify.now.sh/assets/7.jpg',
+    'https://rverify.now.sh/assets/8.jpg',
+    'https://rverify.now.sh/assets/9.jpg',
+    'https://rverify.now.sh/assets/10.jpg'
   ]
 })
 ```
-**NOTE**: One image needs to be set at least.
+**NOTE**: An image needs to be set at least.
 
-## Thanks
+## Contributors  
+This project exists thanks to all the people who contribute.  
+
+![Feng L.H.](https://avatars2.githubusercontent.com/u/49757965?s=60&v=4) ![Guojun Chen](https://avatars2.githubusercontent.com/u/10856371?s=60&v=4)
+
+
+## License
 RVerify © 2020-present, Feng L.H. Released under the [MIT License](https://mit-license.org/).
