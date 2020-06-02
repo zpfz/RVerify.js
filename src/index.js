@@ -104,13 +104,13 @@
     // Check isMobile and bind different events
     var touchMove, inMobile = isMobile(), downX, touching = false;
     if (isMobile()) {
-      slider.addEventListener('touchstart',touchStart);
-      slider.addEventListener('touchmove',touchMove);
-      slider.addEventListener('touchend',touchEnd);
+      slider.ontouchstart = touchStart;
+      document.ontouchmove = touchMove;
+      document.ontouchend =  touchEnd;
     }else{
-      slider.addEventListener('mousedown',touchStart);
-      slider.addEventListener('mousemove',touchMove);
-      slider.addEventListener('mouseup',touchEnd);
+      slider.onmousedown = touchStart;
+      document.onmousemove = touchMove;
+      document.onmouseup =  touchEnd;
     }
 
     // Init
@@ -121,7 +121,6 @@
     if (Settings.extra !== null && typeof Settings.extra !== 'undefined'){
       footer.style.color = Settings.extraColor;
     }
-
 
     var currentAngle = getImgAngle();
 
@@ -141,6 +140,7 @@
       }
     };
 
+    // Touch Move
     function touchMove (e) {
       if (!touching) return;
       var e = e || window.event;
@@ -159,26 +159,29 @@
       }
     };
 
-    // Slider
+    // Touch Start
     function touchStart (e) {
       // Clear transition
       slider.style.transition = '';
       img.style.transition = '';
+      slider.classList.add('rv-slider-normal');
+
       var e = e || window.event;
       downX = inMobile ? e.touches[0].clientX : e.clientX;
       touching = true;
     };
 
+    // Touch End
     function touchEnd () {
+      slider.classList.remove('rv-slider-normal');
+
       if (!touching) return;
       if (ReturnResult(getImgAngle())) {
         maskImg.style.cssText = 'visibility: visible;opacity: 1';
         maskSuccess.style.cssText = 'visibility: visible;opacity: 1';
         slider.style['pointer-events'] = 'none';
         slider.classList.add('rv-slider-success');
-        slider.onmousedown = null;
-        document.onmousemove = null;
-        document.onmouseup = null;
+
         // Call back
         setTimeout(function () {
           result = 1;
@@ -189,8 +192,6 @@
         maskImg.style.cssText = 'visibility: visible;opacity: 1';
         maskError.style.cssText = 'visibility: visible;opacity: 1';
         slider.style['pointer-events'] = 'none';
-        document.onmousemove = null;
-        document.onmouseup = null;
         control.style.animation = 'shake .15s infinite';
         slider.classList.add('rv-slider-error');
         setTimeout(function () {
@@ -259,7 +260,7 @@
 
   // Check isMobile
   function isMobile() {
-    return navigator.userAgent.toLowerCase().match(/(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null;
+    return ('ontouchstart' in window);
   }
 
   // Global query selector
