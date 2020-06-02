@@ -96,10 +96,22 @@
       maskSuccess = $('.rv-image-mask-success'),
       maskError = $('.rv-image-mask-error'),
       footer = $('.rv-extra') ;
-    
+
     var distance = bar.offsetWidth - slider.offsetWidth;
     // Flag
     var result = 0;
+
+    // Check isMobile and bind different events
+    var touchMove, inMobile = isMobile(), downX, touching = false;
+    if (isMobile()) {
+      slider.addEventListener('touchstart',touchStart);
+      slider.addEventListener('touchmove',touchMove);
+      slider.addEventListener('touchend',touchEnd);
+    }else{
+      slider.addEventListener('mousedown',touchStart);
+      slider.addEventListener('mousemove',touchMove);
+      slider.addEventListener('mouseup',touchEnd);
+    }
 
     // Init
     mask.style['background-color'] = 'rgba(0, 0, 0,' + Settings.mask + ')';
@@ -129,69 +141,74 @@
       }
     };
 
+    function touchMove (e) {
+      if (!touching) return;
+      var e = e || window.event;
+      var moveX = inMobile ? e.touches[0].clientX : e.clientX;
+      var offsetX = moveX - downX;
+      var targetAngle = (offsetX / distance) * 360;
+
+      if (offsetX > distance) {
+        offsetX = distance;
+      } else if (offsetX < 0) {
+        offsetX = 0;
+      } else {
+        slider.style.left = offsetX + 'px';
+        targetAngle = currentAngle + targetAngle;
+        img.style.transform = 'rotate(' + targetAngle + 'deg)';
+      }
+    };
+
     // Slider
-    slider.onmousedown = function (e) {
+    function touchStart (e) {
       // Clear transition
       slider.style.transition = '';
       img.style.transition = '';
-
       var e = e || window.event;
-      var downX = e.clientX;
-      document.onmousemove = function (e) {
-        var e = e || window.event;
-        var moveX = e.clientX;
-        var offsetX = moveX - downX;
-        var targetAngle = (offsetX / distance) * 360;
+      downX = inMobile ? e.touches[0].clientX : e.clientX;
+      touching = true;
+    };
 
-        if (offsetX > distance) {
-          offsetX = distance;
-        } else if (offsetX < 0) {
-          offsetX = 0;
-        } else {
-          slider.style.left = offsetX + 'px';
-          targetAngle = currentAngle + targetAngle;
-          img.style.transform = 'rotate(' + targetAngle + 'deg)';
-        }
-      };
-      document.onmouseup = function () {
-        if (ReturnResult(getImgAngle())) {
-          maskImg.style.cssText = 'visibility: visible;opacity: 1';
-          maskSuccess.style.cssText = 'visibility: visible;opacity: 1';
-          slider.style['pointer-events'] = 'none';
-          slider.classList.add('rv-slider-success');
-          slider.onmousedown = null;
-          document.onmousemove = null;
-          document.onmouseup = null;
-          // Call back
-          setTimeout(function () {
-            result = 1;
-            root.parentNode.remove();
-            callback(result);
-          }, Settings.duration);
-        } else {
-          maskImg.style.cssText = 'visibility: visible;opacity: 1';
-          maskError.style.cssText = 'visibility: visible;opacity: 1';
-          slider.style['pointer-events'] = 'none';
-          document.onmousemove = null;
-          document.onmouseup = null;
-          control.style.animation = 'shake .15s infinite';
-          slider.classList.add('rv-slider-error');
-          setTimeout(function () {
-            img.src = getRandomImg(Settings.album);
-            maskImg.style.cssText = '';
-            maskError.style.cssText = '';
-            slider.classList.remove('rv-slider-error');
-            control.style.animation = '';
-            slider.style.left = 0;
-            img.style.transform = 'rotate(' + currentAngle + 'deg)';
-            slider.style.transition =
-              'background .2s ease-in-out,border-color .2s ease-in-out,box-shadow .2s ease-in-out,left .5s ease-in-out';
-            img.style.transition = 'transform .5s ease-in-out';
-            slider.style['pointer-events'] = '';
-          }, 500);
+    function touchEnd () {
+      if (!touching) return;
+      if (ReturnResult(getImgAngle())) {
+        maskImg.style.cssText = 'visibility: visible;opacity: 1';
+        maskSuccess.style.cssText = 'visibility: visible;opacity: 1';
+        slider.style['pointer-events'] = 'none';
+        slider.classList.add('rv-slider-success');
+        slider.onmousedown = null;
+        document.onmousemove = null;
+        document.onmouseup = null;
+        // Call back
+        setTimeout(function () {
+          result = 1;
+          root.parentNode.remove();
           callback(result);
-        }
-      };
+        }, Settings.duration);
+      } else {
+        maskImg.style.cssText = 'visibility: visible;opacity: 1';
+        maskError.style.cssText = 'visibility: visible;opacity: 1';
+        slider.style['pointer-events'] = 'none';
+        document.onmousemove = null;
+        document.onmouseup = null;
+        control.style.animation = 'shake .15s infinite';
+        slider.classList.add('rv-slider-error');
+        setTimeout(function () {
+          img.src = getRandomImg(Settings.album);
+          maskImg.style.cssText = '';
+          maskError.style.cssText = '';
+          slider.classList.remove('rv-slider-error');
+          control.style.animation = '';
+          slider.style.left = 0;
+          img.style.transform = 'rotate(' + currentAngle + 'deg)';
+          slider.style.transition =
+              'background .2s ease-in-out,border-color .2s ease-in-out,box-shadow .2s ease-in-out,left .5s ease-in-out';
+          img.style.transition = 'transform .5s ease-in-out';
+          slider.style['pointer-events'] = '';
+        }, 500);
+        callback(result);
+      }
+      touching = false;
     };
   };
 
@@ -238,6 +255,11 @@
     } else {
       return false;
     }
+  }
+
+  // Check isMobile
+  function isMobile() {
+    return navigator.userAgent.toLowerCase().match(/(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null;
   }
 
   // Global query selector
