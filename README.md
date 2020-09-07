@@ -8,7 +8,6 @@
 </div>
 
 ## Installation
----
 Add `RVerify.js` and `RVerify.css` to your project.
 ```js
 <script src="RVerify.js"></script>
@@ -22,7 +21,6 @@ npm install --save rverify
 ```
 
 ## Basic usage
----
 Simply call `action()` to activate the verification modal.
 ```js
 RVerify.action(function(res){
@@ -36,7 +34,6 @@ RVerify.action(function(res){
 - `2`: No action.(Return the code when the modal is closed before it successfully verified.)
 
 ## Configuration
----
 You can configure some parameters through `RVerify.configure({})`.
 
 ### mask
@@ -209,12 +206,10 @@ RVerify.configure({
 **NOTE**: An image needs to be set at least.
 
 ## Contributors
----
 This project exists thanks to all the people who contribute.
 
 ![Feng L.H.](https://avatars2.githubusercontent.com/u/49757965?s=60&v=4) ![Guojun Chen](https://avatars2.githubusercontent.com/u/10856371?s=60&v=4)
 
 
 ## License
----
 RVerify © 2020-present, Feng L.H. Released under the [MIT License](https://mit-license.org/).
