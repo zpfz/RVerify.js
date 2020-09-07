@@ -1,5 +1,5 @@
 /*
- * RVerify.js v0.1.0
+ * RVerify.js v0.1.1
  * (c) 2020 Feng L.H.
  * Released under the MIT License.
  */
@@ -16,7 +16,7 @@
 
   var RVerify = {};
 
-  RVerify.version = '0.1.0';
+  RVerify.version = '0.1.1';
 
   var Settings = {
     mask: 0.5,
@@ -26,30 +26,39 @@
     sliderIcon:
       '<svg t="1590338601818" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6547" width="20" height="20"><path d="M512.299934 1023.800044c-10.797617 0-21.595234-3.999117-29.993381-11.797396-17.496139-16.496359-18.195984-44.090269-1.799602-61.586408l412.508958-437.10353c8.398147-8.898036 8.298169-23.894726-0.599868-32.692784L481.606708 74.409578c-17.096227-16.896271-17.296183-44.490181-0.299934-61.586408 16.896271-16.896271 44.390203-17.196205 61.586408-0.299934l410.809333 406.11037c42.290666 41.790777 43.590379 111.075485 2.699404 154.465909l-412.508958 437.003552c-8.69808 9.097992-20.195543 13.696977-31.593027 13.696977z" p-id="6548"></path><path d="M86.093999 924.821889c-10.697639 0-21.495256-3.999117-29.793425-11.897374-17.496139-16.496359-18.295962-44.090269-1.799603-61.586408l315.930274-334.626147c8.398147-9.097992 8.298169-24.094682-0.599868-32.792762L55.500751 173.587689c-16.996249-16.896271-17.196205-44.490181-0.299934-61.686386 16.896271-16.996249 44.390203-17.296183 61.586408-0.199956L431.017873 422.032856c42.290666 41.790777 43.490402 111.075485 2.799382 154.465909l-315.930273 334.626147c-8.69808 9.097992-20.195543 13.696977-31.792983 13.696977z" p-id="6549"></path></svg>',
     extraIcon:
-      '<svg t="1590289223124" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2770" width="15" height="15"><path d="M512.002558 64.24521c-247.292176 0-447.75786 200.464661-447.75786 447.756837 0 247.287059 200.464661 447.752744 447.75786 447.752744 247.286036 0 447.75172-200.464661 447.75172-447.752744C959.754279 264.710894 759.288594 64.24521 512.002558 64.24521zM512.010745 735.87586c-20.602224 0-37.319977-16.718777-37.319977-37.323047 0-20.597107 16.717753-37.319977 37.319977-37.319977 20.60427 0 37.297464 16.72287 37.297464 37.319977C549.308209 719.158107 532.613992 735.87586 512.010745 735.87586zM549.308209 567.969733c0 20.600177-16.693194 37.293371-37.297464 37.293371-20.602224 0-37.319977-16.693194-37.319977-37.293371L474.690768 325.420581c0-20.605294 16.717753-37.297464 37.319977-37.297464 20.60427 0 37.297464 16.693194 37.297464 37.297464L549.308209 567.969733z" p-id="2771" fill="#3388ff"></path></svg>',
+      '<svg t="1590289223124" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2770" width="15" height="15"><path d="M512.002558 64.24521c-247.292176 0-447.75786 200.464661-447.75786 447.756837 0 247.287059 200.464661 447.752744 447.75786 447.752744 247.286036 0 447.75172-200.464661 447.75172-447.752744C959.754279 264.710894 759.288594 64.24521 512.002558 64.24521zM512.010745 735.87586c-20.602224 0-37.319977-16.718777-37.319977-37.323047 0-20.597107 16.717753-37.319977 37.319977-37.319977 20.60427 0 37.297464 16.72287 37.297464 37.319977C549.308209 719.158107 532.613992 735.87586 512.010745 735.87586zM549.308209 567.969733c0 20.600177-16.693194 37.293371-37.297464 37.293371-20.602224 0-37.319977-16.693194-37.319977-37.293371L474.690768 325.420581c0-20.605294 16.717753-37.297464 37.319977-37.297464 20.60427 0 37.297464 16.693194 37.297464 37.297464L549.308209 567.969733z" p-id="2771" fill="#4E6EF2"></path></svg>',
     tolerance: 10,
     duration: 500,
     title: '身份验证',
     text: '拖动滑块，使图片角度为正',
     extra: null,
-    extraColor: '#38F',
+    extraColor: '#4E6EF2',
     extraLink: 'https://github.com/zpfz',
     zIndex: 9999,
     album: [],
   };
 
+  var checkFlag = false;
+
   // Configure
   RVerify.configure = function (options) {
+    checkFlag = true;
     var key, value;
     for (key in options) {
       value = options[key];
-      if (value !== undefined && options.hasOwnProperty(key))
+      if (value !== undefined && options.hasOwnProperty(key)){
         Settings[key] = value;
+      }
     }
     return this;
   };
 
+  // Action
   RVerify.action = function (callback) {
+    if (!checkFlag){
+      throw new Error('Please make sure RVerify.configure method is executed before RVerify.action');
+    }
+
     if (Settings.extra !== null && typeof Settings.extra !== 'undefined') {
       var _extra;
       _extra =
@@ -95,22 +104,25 @@
       maskImg = $('.rv-image-mask'),
       maskSuccess = $('.rv-image-mask-success'),
       maskError = $('.rv-image-mask-error'),
-      footer = $('.rv-extra') ;
+      footer = $('.rv-extra');
 
     var distance = bar.offsetWidth - slider.offsetWidth;
     // Flag
     var result = 0;
 
     // Check isMobile and bind different events
-    var touchMove, inMobile = isMobile(), downX, touching = false;
+    var touchMove,
+      inMobile = isMobile(),
+      downX,
+      touching = false;
     if (isMobile()) {
       slider.ontouchstart = touchStart;
       document.ontouchmove = touchMove;
-      document.ontouchend =  touchEnd;
-    }else{
+      document.ontouchend = touchEnd;
+    } else {
       slider.onmousedown = touchStart;
       document.onmousemove = touchMove;
-      document.onmouseup =  touchEnd;
+      document.onmouseup = touchEnd;
     }
 
     // Init
@@ -118,7 +130,7 @@
     mask.style['z-index'] = Settings.zIndex;
     wrap.style['z-index'] = Settings.zIndex;
     img.style.transform = 'rotate(' + RandomAngle(Settings.tolerance) + 'deg)';
-    if (Settings.extra !== null && typeof Settings.extra !== 'undefined'){
+    if (Settings.extra !== null && typeof Settings.extra !== 'undefined') {
       footer.style.color = Settings.extraColor;
     }
 
@@ -141,7 +153,7 @@
     };
 
     // Touch Move
-    function touchMove (e) {
+    function touchMove(e) {
       if (!touching) return;
       var e = e || window.event;
       var moveX = inMobile ? e.touches[0].clientX : e.clientX;
@@ -157,10 +169,10 @@
         targetAngle = currentAngle + targetAngle;
         img.style.transform = 'rotate(' + targetAngle + 'deg)';
       }
-    };
+    }
 
     // Touch Start
-    function touchStart (e) {
+    function touchStart(e) {
       // Clear transition
       slider.style.transition = '';
       img.style.transition = '';
@@ -169,10 +181,10 @@
       var e = e || window.event;
       downX = inMobile ? e.touches[0].clientX : e.clientX;
       touching = true;
-    };
+    }
 
     // Touch End
-    function touchEnd () {
+    function touchEnd() {
       slider.classList.remove('rv-slider-normal');
 
       if (!touching) return;
@@ -203,20 +215,21 @@
           slider.style.left = 0;
           img.style.transform = 'rotate(' + currentAngle + 'deg)';
           slider.style.transition =
-              'background .2s ease-in-out,border-color .2s ease-in-out,box-shadow .2s ease-in-out,left .5s ease-in-out';
+            'background .2s ease-in-out,border-color .2s ease-in-out,box-shadow .2s ease-in-out,left .5s ease-in-out';
           img.style.transition = 'transform .5s ease-in-out';
           slider.style['pointer-events'] = '';
         }, 500);
         callback(result);
       }
       touching = false;
-    };
+    }
   };
 
   // Random number
   function getRandomNumber(a, b) {
     return Math.round(Math.random() * (b - a) + a);
   }
+
   // Random image
   function getRandomImg(imgArr) {
     return imgArr[getRandomNumber(0, imgArr.length - 1)];
@@ -260,7 +273,7 @@
 
   // Check isMobile
   function isMobile() {
-    return ('ontouchstart' in window);
+    return 'ontouchstart' in window;
   }
 
   // Global query selector

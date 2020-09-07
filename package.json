@@ -1,6 +1,6 @@
 {
   "name": "rverify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Feng L.H.",
   "description": "A lightweight image rotation verification plugin.",
   "main": "./dist/RVerify.min.js",
