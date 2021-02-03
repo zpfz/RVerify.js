@@ -1,9 +1,9 @@
 /*
- * RVerify.js v0.1.1
+ * RVerify.js v0.1.2
  * (c) 2020 Feng L.H.
  * Released under the MIT License.
  */
-(function (root, factory) {
+;(function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     define(factory);
   } else if (typeof exports === 'object') {
@@ -213,7 +213,8 @@
           slider.classList.remove('rv-slider-error');
           control.style.animation = '';
           slider.style.left = 0;
-          img.style.transform = 'rotate(' + currentAngle + 'deg)';
+          img.style.transform = 'rotate(' + RandomAngle(Settings.tolerance) + 'deg)';
+          currentAngle = getImgAngle();
           slider.style.transition =
             'background .2s ease-in-out,border-color .2s ease-in-out,box-shadow .2s ease-in-out,left .5s ease-in-out';
           img.style.transition = 'transform .5s ease-in-out';

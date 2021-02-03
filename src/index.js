@@ -1,5 +1,5 @@
 /*
- * RVerify.js v0.1.1
+ * RVerify.js v0.1.2
  * (c) 2020 Feng L.H.
  * Released under the MIT License.
  */
