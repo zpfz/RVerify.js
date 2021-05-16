@@ -62,8 +62,8 @@
 .rv-wrap .rv-content .rv-image img,
 .rv-wrap .rv-content .rv-image .rv-image-mask {
   border-radius: 50%;
-  max-width: 152px;
-  max-height: 152px;
+  width: 152px;
+  height: 152px;
   user-select: none;
 }
 .rv-wrap .rv-content .rv-image .rv-image-mask {
