@@ -1,5 +1,5 @@
 /*
- * RVerify.js v0.1.2
+ * RVerify.js
  * (c) 2020 Feng L.H.
  * Released under the MIT License.
  */
@@ -16,7 +16,7 @@
 
   var RVerify = {};
 
-  RVerify.version = '0.1.1';
+  RVerify.version = '0.1.3';
 
   var Settings = {
     mask: 0.5,
@@ -104,7 +104,10 @@
       maskImg = $('.rv-image-mask'),
       maskSuccess = $('.rv-image-mask-success'),
       maskError = $('.rv-image-mask-error'),
-      footer = $('.rv-extra');
+      footer = $('.rv-extra'),
+
+      html = $('html');
+
 
     var distance = bar.offsetWidth - slider.offsetWidth;
     // Flag
@@ -126,6 +129,8 @@
     }
 
     // Init
+    // add touch-action style in <html></html>
+    html.setAttribute('style', 'touch-action:pan-y !important;');
     mask.style['background-color'] = 'rgba(0, 0, 0,' + Settings.mask + ')';
     mask.style['z-index'] = Settings.zIndex;
     wrap.style['z-index'] = Settings.zIndex;
@@ -140,6 +145,8 @@
     close.onclick = function () {
       result = 2;
       root.parentNode.remove();
+      // remove touch-action style in <html></html>
+      html.removeAttribute('style');
       callback(result);
     };
 
@@ -148,6 +155,8 @@
       if (Settings.maskClosable == true) {
         result = 2;
         root.parentNode.remove();
+        // remove touch-action style in <html></html>
+        html.removeAttribute('style');
         callback(result);
       }
     };
@@ -198,6 +207,8 @@
         setTimeout(function () {
           result = 1;
           root.parentNode.remove();
+          // remove touch-action style in <html></html>
+          html.removeAttribute('style');
           callback(result);
         }, Settings.duration);
       } else {
@@ -208,10 +219,13 @@
         slider.classList.add('rv-slider-error');
         setTimeout(function () {
           img.src = getRandomImg(Settings.album);
-          maskImg.style.cssText = '';
-          maskError.style.cssText = '';
+          // maskImg.style.cssText = '';
+          maskImg.removeAttribute('style');
+          // maskError.style.cssText = '';
+          maskError.removeAttribute('style');
           slider.classList.remove('rv-slider-error');
-          control.style.animation = '';
+          // control.style.animation = '';
+          control.removeAttribute('style');
           slider.style.left = 0;
           img.style.transform = 'rotate(' + RandomAngle(Settings.tolerance) + 'deg)';
           currentAngle = getImgAngle();
