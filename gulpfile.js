@@ -8,7 +8,7 @@ const gutil = require('gulp-util');
 const babel = require('gulp-babel');
 const less = require('gulp-less');
 const minifyCss = require('gulp-minify-css');
-const version = require('./package.json').version;
+// const version = require('./package.json').version;
 
 const jsPath = './src/index.js';
 const cssPath = './src/style/style.less';
@@ -65,7 +65,7 @@ gulp.task('css:build', async () => {
 gulp.task('server', () => {
   connect.server({
     root: './test/',
-    livereload: true
+    livereload: true,
   });
 });
 gulp.task('html:dev', async () => {
