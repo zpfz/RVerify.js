@@ -203,12 +203,12 @@ RVerify.configure({
   ]
 })
 ```
-**NOTE**: An image needs to be set at least.
+**NOTE**: A `152*152` px image needs to be set at least.
 
 ## Contributors
 This project exists thanks to all the people who contribute.
 
-![Feng L.H.](https://avatars2.githubusercontent.com/u/49757965?s=60&v=4) ![Guojun Chen](https://avatars2.githubusercontent.com/u/10856371?s=60&v=4) ![WampyCakes](https://avatars.githubusercontent.com/u/9156604?s=460&u=48e7338d3c8083644bfa242a592cb2b457a36aa5&v=4) 
+![Feng L.H.](https://avatars2.githubusercontent.com/u/49757965?s=60&v=4) ![Guojun Chen](https://avatars2.githubusercontent.com/u/10856371?s=60&v=4) ![WampyCakes](https://avatars2.githubusercontent.com/u/9156604?s=60&v=4) 
 
 
 ## License
